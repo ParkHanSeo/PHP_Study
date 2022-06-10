@@ -1,27 +1,5 @@
 <?php
-    function print_title(){
-        if(isset($_GET['id'])){
-            echo file_get_contents("data/".$_GET['id']);
-        }else{
-            echo "Welcome";
-        }
-    }
-    function print_description(){
-
-    }
-
-    function print_list(){
-        $list = scandir('data');
-        for($i = 0; $i < count($list); $i++){
-            if($list[$i] != '.'){
-                if($list[$i] != '..'){
-                    ?>
-                    <li><a href="index2.php?id=<?=$list[$i]?>"><?=$list[$i]?></a></li>
-                    <?php
-                }
-            }
-        }
-    }
+require('../lib/print.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
