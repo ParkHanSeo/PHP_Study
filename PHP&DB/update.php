@@ -16,7 +16,7 @@ $article = array(
 );
 
 $update_link = '';
-$delete_link = '';
+
 if(isset($_GET['id'])){
     $filtered_id = mysqli_real_escape_string($conn, $_GET['id']);
     //escape_string 해당 기능을 사용함으로서 보안성을 높일 수 있다.
@@ -27,12 +27,6 @@ if(isset($_GET['id'])){
     $article['description'] = htmlspecialchars($row['description']);
 
     $update_link = '<a href="update.php?id='.$_GET['id'].'">update</a>';
-    $delete_link = '
-            <form action="process_delete.php" method="POST"> 
-                <input type="hidden" name="id" value="'.$_GET['id'].'">
-                <input type="submit" value="delete">
-            </form>
-    ';
 }
 
 
@@ -45,14 +39,15 @@ if(isset($_GET['id'])){
     <title><a href="index2.php">WEB</a></title>
 </head>
 <body>
-    <h1><a href="index2.php">WEB</a></h1>
+    <h1>WEB</h1>
     <ol>
         <?=$list?>
     </ol>
-    <a href="create.php">create</a>
-    <?=$update_link?>
-    <?=$delete_link?>
-    <h2><?=$article['title']?></h2>
-    <?=$article['description']?>
+    <form action="process_update.php" method="POST">
+        <input type="hidden" name="id" value="<?=$_GET['id']?>">
+        <p><input type="text" name="title" placeholder="title" value="<?=$article['title']?>"></p>
+        <p><textarea name="description" placeholder="description"><?=$article['description']?></textarea></p>
+        <p><input type="submit"></p>
+    </form>
 </body>
 </html>
